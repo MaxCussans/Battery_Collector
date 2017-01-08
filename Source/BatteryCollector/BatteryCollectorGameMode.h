@@ -38,6 +38,12 @@ public:
 	// sets a new playing state
 	void SetCurrentState(EBatteryPlayState NewState);
 
+	FVector PlayerLocation;
+
+	static bool WriteStringToFile(const FString& PlayerLocString, const TCHAR* PlayerData, EEncodingOptions::Type EncodingOptions = EEncodingOptions::AutoDetect, IFileManager* FileManager = &IFileManager::Get());
+
+
+
 protected:
 	// rate at which character loses power
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Power", Meta = (BlueprintProtected = "true"))

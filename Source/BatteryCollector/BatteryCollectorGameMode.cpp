@@ -111,6 +111,17 @@ void ABatteryCollectorGameMode::HandleNewState(EBatteryPlayState NewState)
 			{
 				Volume->SetSpawningActive(true);
 			}
+			//write position
+			ABatteryCollectorCharacter* MyCharacter = Cast<ABatteryCollectorCharacter>(UGameplayStatics::GetPlayerPawn(this, 0));
+			if (MyCharacter)
+			{
+				GetActorLocation();
+				if(GetActorLocation != PlayerLocation)
+				{
+					WriteStringToFile
+					PlayerLocation = GetActorLocation;
+				}
+
 		}
 		break;
 		// in we have won
@@ -153,4 +164,27 @@ void ABatteryCollectorGameMode::HandleNewState(EBatteryPlayState NewState)
 		}
 		break;
 	}
+}
+
+
+
+	static bool WriteStringToFile(const FString& PlayerLocString, const TCHAR* PlayerData, EEncodingOptions::Type EncodingOptions = EEncodingOptions::AutoDetect, IFileManager* FileManager = &IFileManager::Get())
+	{
+			FString PlayerData,
+			FString SaveText;
+
+			SaveText = "X:" + to_string(PlayerLocation.x) + "  Y:" + to_string(PlayerLocation.y) + "  Z:" + to_string(PlayerLocation.z) + "\n";
+
+			{
+			//GFileManager?
+			if (!GFileManager) return false;
+
+			
+
+			return FFileHelper::SaveStringToFile(SaveText, *PlayerData);
+			}
+	}
+
+
+
 }
